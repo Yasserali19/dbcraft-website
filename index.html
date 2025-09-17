@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBCraft Solutions - Database Administration Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #4a90e2;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0 80px;
+            margin-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            background: white;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4a90e2, #667eea);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-package {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-package::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #4a90e2, #667eea);
+        }
+        
+        .package-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4a90e2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .package-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+        
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4a90e2;
+            font-weight: bold;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4a90e2;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">DBCraft Solutions</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Expert Database Services for Growing Businesses</h1>
+            <p>Professional SQL Server management and support services for startups and SMEs in Lithuania and across Europe</p>
+            <a href="#contact" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose DBCraft Solutions?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Expert Team</h3>
+                    <p>14+ years of SQL Server expertise with trained Lithuanian DBA professionals providing world-class database administration services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Cost Effective</h3>
+                    <p>Subscription-based model that costs significantly less than hiring full-time DBAs, perfect for startups and growing businesses.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Focus on Growth</h3>
+                    <p>Let us handle your database infrastructure while you focus on growing your business and serving your customers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Graduated Support</h3>
+                    <p>From business hours support to 24/7 enterprise coverage, our service levels grow with your business needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Custom Solutions</h3>
+                    <p>Tailored database architecture and administration based on your specific business needs and requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Scalable Services</h3>
+                    <p>Our services grow with your business - from startup databases to enterprise-level infrastructure management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Service Packages</h2>
+            <div class="services-grid">
+                <div class="service-package">
+                    <h3 class="package-name">Startup Package</h3>
+                    <div class="package-price">€749<span style="font-size: 1rem; color: #666;">/month</span></div>
+                    <ul class="package-features">
+                        <li>Database installation & configuration</li>
+                        <li>Basic security setup</li>
+                        <li>Weekly health checks</li>
+                        <li>Email support (48h response)</li>
+                        <li>Monthly performance reports</li>
+                        <li>Backup strategy implementation</li>
+                        <li>Up to 20 hours DBA support</li>
+                        <li><strong>Supports up to 3 DB servers/instances</strong></li>
+                        <li><em>Business hours support (8 AM - 6 PM)</em></li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Choose Plan</a>
+                </div>
+                
+                <div class="service-package">
+                    <h3 class="package-name">Business Package</h3>
+                    <div class="package-price">€1,499<span style="font-size: 1rem; color: #666;">/month</span></div>
+                    <ul class="package-features">
+                        <li>Everything in Startup Package</li>
+                        <li>Advanced security & compliance</li>
+                        <li>Extended hours monitoring (6 AM - 10 PM)</li>
+                        <li>Phone support (24h response)</li>
+                        <li>Performance optimization</li>
+                        <li>Disaster recovery planning</li>
+                        <li>Monthly strategy consultations</li>
+                        <li>Up to 40 hours DBA support</li>
+                        <li><strong>Supports up to 5 DB servers/instances</strong></li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Choose Plan</a>
+                </div>
+                
+                <div class="service-package">
+                    <h3 class="package-name">Enterprise Package</h3>
+                    <div class="package-price">€2,599<span style="font-size: 1rem; color: #666;">/month</span></div>
+                    <ul class="package-features">
+                        <li>Everything in Business Package</li>
+                        <li><strong>24/7 monitoring and support</strong></li>
+                        <li>Dedicated DBA team</li>
+                        <li>Real-time monitoring dashboard</li>
+                        <li>Priority support (2h response)</li>
+                        <li>Advanced analytics & reporting</li>
+                        <li>High availability architecture</li>
+                        <li>Custom integrations</li>
+                        <li>Quarterly business reviews</li>
+                        <li><strong>Supports up to 10 DB servers/instances</strong></li>
+                        <li><em>10+ servers require custom quotation</em></li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Choose Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Expert Database Leadership</h2>
+                    <p>Founded by a SQL Server consultant with over 14 years of enterprise experience, including extensive consulting work for government and enterprise clients. DBCraft Solutions bridges the gap between expert database administration and affordable startup budgets.</p>
+                    <p>Our mission is simple: provide Lithuanian and European businesses with access to world-class database expertise without the overhead of hiring full-time specialists.</p>
+                    <p>We train and guide local Lithuanian talent, creating a skilled DBA team that understands both international best practices and local business needs.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">14+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime Goal</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Up to 24/7</span>
+                        <span class="stat-label">Enterprise Support</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Planned Clients</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Ready to Enhance Your Database Success?</h2>
+            <p>Join the growing number of businesses trusting DBCraft Solutions with their database infrastructure</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>info@dbcraft-solutions.lt</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+370 XXX XXXXX</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Vilnius, Lithuania</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 DBCraft Solutions. Professional Database Administration Services in Lithuania.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
